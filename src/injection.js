@@ -19,7 +19,6 @@ async function main() {
     let html = await fetch(chrome.runtime.getURL('/files/index.html')).then(r => r.text());
     document.documentElement.innerHTML = html;
 
-
     let [challenge_js, interception_js, vendor_js, bundle_js, bundle_css, twitter_text] =
         await Promise.allSettled([
             fetch(chrome.runtime.getURL("/src/challenge.js")).then(r => r.text()),
@@ -152,65 +151,56 @@ async function main() {
     twitter_text_script.innerHTML = twitter_text.value;
     document.head.appendChild(twitter_text_script);
 
-     // Add clipboard handler
-     let clipboard_handler = document.createElement("script");
-     clipboard_handler.innerHTML = `
-         document.addEventListener('paste', async (e) => {
-             // Only handle pastes in tweet compose boxes
-             if (!e.target.closest('.js-compose-text')) return;
-             
-             const items = e.clipboardData?.items;
-             if (!items) return;
-     
-             const imageItems = Array.from(items).filter(
-                 item => item.type.indexOf('image') !== -1
-             );
-     
-             if (imageItems.length === 0) return;
-             e.preventDefault();
-     
-             const composeBox = e.target.closest('.js-compose');
-             if (!composeBox) return;
-     
-             const scribeContext = {
-                 component: "compose",
-                 element: "button",
-                 action: "upload_media"
-             };
-     
-             for (const item of imageItems) {
-                 const file = item.getAsFile();
-                 if (!file) continue;
-     
-                 // Get the compose ID from the form
-                 const composeId = composeBox.querySelector('form').getAttribute('data-compose-id');
-                 
-                 // Directly use TD's upload controller
-                 TD.controller.uploadController.uploadMedia(
-                     [file], 
-                     composeId,
-                     scribeContext
-                 ).then(response => {
-                     if (response && response.length) {
-                         // Update the compose box UI to show the media
-                         const composer = TD.controller.composer.get(composeId);
-                         if (composer) {
-                             composer.addMedia(response[0]);
-                         }
-                     }
-                 }).catch(error => {
-                     console.error('Media upload failed:', error);
-                     // Optionally show error using TD's notification system
-                     if (TD.controller.notifications) {
-                         TD.controller.notifications.showErrorNotification({
-                             message: "Failed to upload media"
-                         });
-                     }
-                 });
-             }
-         });
-     `;
-     document.head.appendChild(clipboard_handler);
+    let paste_handler = document.createElement("script");
+    paste_handler.innerHTML = `
+        (function() {
+            function checkDependencies() {
+                if (typeof TD === 'undefined' || typeof TD.controller === 'undefined' || typeof jQuery === 'undefined') {
+                    console.log('Waiting for dependencies...');
+                    setTimeout(checkDependencies, 100);
+                    return;
+                }
+    
+                const $ = jQuery;
+                console.log('Dependencies loaded, setting up paste handler');
+    
+                document.addEventListener('paste', function(e) {
+                    if (!e.target.closest('.js-compose-text')) return;
+    
+                    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                    for (const item of items) {
+                        if (item.type.indexOf("image") !== -1) {
+                            console.log('Found image in clipboard');
+                            e.preventDefault();
+                            const file = item.getAsFile();
+    
+                            // Trigger TD's direct file upload handler
+                            $(document).trigger('pasteImage', {
+                                target: {
+                                    files: [file]
+                                }
+                            });
+                            break;
+                        }
+                    }
+                });
+            }
+    
+            checkDependencies();
+        })();
+    `;
+    
+    // Add jQuery first if not present
+    if (!document.querySelector('script[src*="jquery"]')) {
+        let jqueryScript = document.createElement('script');
+        jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+        jqueryScript.onload = function() {
+            document.head.appendChild(paste_handler);
+        };
+        document.head.appendChild(jqueryScript);
+    } else {
+        document.head.appendChild(paste_handler);
+    }
 
     let int = setTimeout(function() {
         let badBody = document.querySelector('body:not(#injected-body)');

@@ -9,7 +9,7 @@
 ## 설치
 메모: 설치 후에 확장프로그램 파일(크로미움의 경우 압축 해제한 폴더, 파이어폭스의 경우 ZIP파일)을 삭제하지 마세요.
 ### 크로미움 (크롬, 엣지, 오페라, Brave, 웨일 등) 
-1. [배포 페이지](https://github.com/UltraInstinct0x/TweetDeck/releases)로 가서 `OldTweetDeckChrome.zip`을 다운로드 합니다.
+1. [배포 페이지](https://github.com/dimdenGD/OldTweetDeck/releases)로 가서 `OldTweetDeckChrome.zip`을 다운로드 합니다.
 2. 파일의 압축을 풉니다.
 3. 확장 프로그램 페이지(``chrome://extensions``)로 접속합니다.
 4. 개발자 모드를 활성화 합니다. (페이지 어딘가에 스위치가 있을 것입니다.)
@@ -20,7 +20,7 @@
 
 ### 파이어폭스
 #### Nightly / 개발자 버전
-1. [배포 페이지](https://github.com/UltraInstinct0x/TweetDeck/releases)로 가서 `OldTweetDeckFirefox.zip`을 다운로드 합니다.
+1. [배포 페이지](https://github.com/dimdenGD/OldTweetDeck/releases)로 가서 `OldTweetDeckFirefox.zip`을 다운로드 합니다.
 2. Firefox Configuration Editor (`about:config`)로 접속합니다.
 3. `xpinstall.signatures.required`을 검색하여 false로 바꿔줍니다.
 4. 부가 기능 관리자 페이지(``about:addons``)에 접속합니다

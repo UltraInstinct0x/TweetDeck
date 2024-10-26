@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UltraInstinct0x/TweetDeck.git"
+    "url": "git+https://github.com/dimdenGD/OldTweetDeck.git"
   },
   "keywords": [
     "twitter",
@@ -20,9 +20,9 @@
   "author": "dimden",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UltraInstinct0x/TweetDeck/issues"
+    "url": "https://github.com/dimdenGD/OldTweetDeck/issues"
   },
-  "homepage": "https://github.com/UltraInstinct0x/TweetDeck#readme",
+  "homepage": "https://github.com/dimdenGD/OldTweetDeck#readme",
   "dependencies": {
     "adm-zip": "^0.5.10"
   }

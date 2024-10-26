@@ -1,6 +1,6 @@
 setTimeout(function () {
     document.title = "TweetDeck";
-
+    console.log("Using TweetDeck bundle.js");
     var icon = document.createElement("link");
     icon.type = "image/x-icon";
     icon.rel = "shortcut icon";

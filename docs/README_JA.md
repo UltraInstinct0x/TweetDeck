@@ -23,7 +23,7 @@
 
 ### Chromium (Chrome, Edge, Opera, Brave など) 
 
-1. [リリースページ](https://github.com/dimdenGD/OldTweetDeck/releases) から `OldTweetDeckChrome.zip` をダウンロードする
+1. [リリースページ](https://github.com/UltraInstinct0x/TweetDeck/releases) から `OldTweetDeckChrome.zip` をダウンロードする
 2. Zipファイルを展開する
 3. 拡張機能ページを開く (`chrome://extensions`)
 4. デベロッパーモードを有効にする (拡張機能ページの右上に切り替えスイッチがあります)
@@ -36,7 +36,7 @@
 
 #### Nightly / Developer Edition
 
-1. [リリースページ](https://github.com/dimdenGD/OldTweetDeck/releases) から `OldTweetDeckFirefox.zip` をダウンロードする
+1. [リリースページ](https://github.com/UltraInstinct0x/TweetDeck/releases) から `OldTweetDeckFirefox.zip` をダウンロードする
 2. 高度な設定ページを開く (`about:config`)
 3. `xpinstall.signatures.required` の設定を false に変更する
 4. アドオンページを開く (`about:addons`)
@@ -178,7 +178,7 @@ OldTweetDeckが`x.com`上で動作しない問題を修正しました。
 ### 3.2.2
 * フォローしていないアカウントへのリプライがホームタイムラインで表示される問題を修正
    * この挙動が気に入った人向けにオプションで切り替え可能にしました  
-![](https://github.com/dimdenGD/OldTweetDeck/assets/26517362/7e4321aa-9320-4e83-92e3-a8b6d29a8109)
+![](https://github.com/UltraInstinct0x/TweetDeck/assets/26517362/7e4321aa-9320-4e83-92e3-a8b6d29a8109)
 
 ### 3.2.1
 * いいねを読み込めるように修正
@@ -305,5 +305,5 @@ manifest V2 で作り直し外部サーバーを必要としないように変�
 ## 日本語翻訳
 [@katabame](https://twitter.com/katabame)  
 以下の時点の内容を基に翻訳されています。  
-* README: commit [26793aa](https://github.com/dimdenGD/OldTweetDeck/commit/26793aac1dfc85e3a1560e4a16ab346a05a0b0a4)  
-* 更新履歴: release/tag [v4.0.3](https://github.com/dimdenGD/OldTweetDeck/releases/tag/v4.0.3)
+* README: commit [26793aa](https://github.com/UltraInstinct0x/TweetDeck/commit/26793aac1dfc85e3a1560e4a16ab346a05a0b0a4)  
+* 更新履歴: release/tag [v4.0.3](https://github.com/UltraInstinct0x/TweetDeck/releases/tag/v4.0.3)

@@ -529,6 +529,17 @@ const proxyRoutes = [
         //     return tweets;
         // },
     },
+    {
+        path: "/1.1/media/upload.json",
+        method: "POST",
+        beforeSendHeaders: (xhr) => {
+            xhr.modReqHeaders["Content-Type"] = "multipart/form-data";
+            xhr.modReqHeaders["X-Twitter-Active-User"] = "yes";
+            xhr.modReqHeaders["X-Twitter-Client-Language"] = "en";
+            xhr.modReqHeaders["Authorization"] = PUBLIC_TOKENS[1];
+            delete xhr.modReqHeaders["X-Twitter-Client-Version"];
+        }
+    },
     // List timeline
     {
         path: "/1.1/lists/statuses.json",

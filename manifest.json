@@ -1,9 +1,9 @@
 {
-    "name": "OldTweetDeck",
-    "description": "Returns old TweetDeck, for free!",
+    "name": "TweetDeck",
+    "description": "Use TweetDeck, for free!",
     "version": "4.0.3",
     "manifest_version": 3,
-    "homepage_url": "https://github.com/dimdenGD/OldTweetDeck",
+    "homepage_url": "https://github.com/ultrainstinct0x/TweetDeck",
     "permissions": [
         "webNavigation",
         "cookies",

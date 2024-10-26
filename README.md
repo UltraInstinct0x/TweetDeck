@@ -24,7 +24,7 @@ Note: Do not delete the extension files (unzipped archive for Chromium, zip file
 
 ### Chromium (Chrome, Edge, Opera, Brave, Etc.)
 
-1. Go to [Release page](https://github.com/dimdenGD/OldTweetDeck/releases) and download `OldTweetDeckChrome.zip`
+1. Go to [Release page](https://github.com/UltraInstinct0x/TweetDeck/releases) and download `OldTweetDeckChrome.zip`
 2. Unzip the archive
 3. Go to extentions page (`chrome://extensions`)
 4. Enable developer mode (there should be switch somewhere on that page)
@@ -37,7 +37,7 @@ Note: Do not delete the extension files (unzipped archive for Chromium, zip file
 
 #### Nightly / Developer Edition
 
-1. Go to [Release page](https://github.com/dimdenGD/OldTweetDeck/releases) and download `OldTweetDeckFirefox.zip`
+1. Go to [Release page](https://github.com/UltraInstinct0x/TweetDeck/releases) and download `OldTweetDeckFirefox.zip`
 2. Go to Firefox Configuration Editor (`about:config`)
 3. Change the preference `xpinstall.signatures.required` to false
 4. Go to addons page(`about:addons`)
@@ -80,7 +80,7 @@ Update to latest OldTweetDeck version.
 
 #### 'Link another account you own' doesn't work.
 
-See https://github.com/dimdenGD/OldTweetDeck/issues/259#issuecomment-2281786253 for a workaround.
+See https://github.com/UltraInstinct0x/TweetDeck/issues/259#issuecomment-2281786253 for a workaround.
 
 #### User or Search column aren't loading for me.
 

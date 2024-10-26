@@ -19,6 +19,7 @@ async function main() {
     let html = await fetch(chrome.runtime.getURL('/files/index.html')).then(r => r.text());
     document.documentElement.innerHTML = html;
 
+
     let [challenge_js, interception_js, vendor_js, bundle_js, bundle_css, twitter_text] =
         await Promise.allSettled([
             fetch(chrome.runtime.getURL("/src/challenge.js")).then(r => r.text()),
@@ -37,12 +38,12 @@ async function main() {
             remote_bundle_css_req,
             remote_twitter_text_req,
         ] = await Promise.allSettled([
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/src/challenge.js"),
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/src/interception.js"),
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/files/vendor.js"),
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/files/bundle.js"),
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/files/bundle.css"),
-            fetch("https://raw.githubusercontent.com/dimdenGD/OldTweetDeck/main/files/twitter-text.js"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/src/challenge.js"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/src/interception.js"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/files/vendor.js"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/files/bundle.js"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/files/bundle.css"),
+            fetch("https://raw.githubusercontent.com/UltraInstinct0x/TweetDeck/main/files/twitter-text.js"),
         ]);
         
         if(
@@ -150,6 +151,66 @@ async function main() {
     let twitter_text_script = document.createElement("script");
     twitter_text_script.innerHTML = twitter_text.value;
     document.head.appendChild(twitter_text_script);
+
+     // Add clipboard handler
+     let clipboard_handler = document.createElement("script");
+     clipboard_handler.innerHTML = `
+         document.addEventListener('paste', async (e) => {
+             // Only handle pastes in tweet compose boxes
+             if (!e.target.closest('.js-compose-text')) return;
+             
+             const items = e.clipboardData?.items;
+             if (!items) return;
+     
+             const imageItems = Array.from(items).filter(
+                 item => item.type.indexOf('image') !== -1
+             );
+     
+             if (imageItems.length === 0) return;
+             e.preventDefault();
+     
+             const composeBox = e.target.closest('.js-compose');
+             if (!composeBox) return;
+     
+             const scribeContext = {
+                 component: "compose",
+                 element: "button",
+                 action: "upload_media"
+             };
+     
+             for (const item of imageItems) {
+                 const file = item.getAsFile();
+                 if (!file) continue;
+     
+                 // Get the compose ID from the form
+                 const composeId = composeBox.querySelector('form').getAttribute('data-compose-id');
+                 
+                 // Directly use TD's upload controller
+                 TD.controller.uploadController.uploadMedia(
+                     [file], 
+                     composeId,
+                     scribeContext
+                 ).then(response => {
+                     if (response && response.length) {
+                         // Update the compose box UI to show the media
+                         const composer = TD.controller.composer.get(composeId);
+                         if (composer) {
+                             composer.addMedia(response[0]);
+                         }
+                     }
+                 }).catch(error => {
+                     console.error('Media upload failed:', error);
+                     // Optionally show error using TD's notification system
+                     if (TD.controller.notifications) {
+                         TD.controller.notifications.showErrorNotification({
+                             message: "Failed to upload media"
+                         });
+                     }
+                 });
+             }
+         });
+     `;
+     document.head.appendChild(clipboard_handler);
 
     let int = setTimeout(function() {
         let badBody = document.querySelector('body:not(#injected-body)');
